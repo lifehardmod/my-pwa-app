@@ -1,7 +1,8 @@
 import { requestPermissionAndGetToken } from "./firebase";
 
 // Vercel Serverless Function에 푸시 알림 요청을 보내는 함수
-async function sendPushNotification(token, title, body) {
+export async function sendPushNotification(token, title, body) {
+  // export 추가
   try {
     const response = await fetch("/api/sendPush", {
       method: "POST",
