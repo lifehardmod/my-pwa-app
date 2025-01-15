@@ -1,6 +1,6 @@
 // Firebase 모듈 불러오기
-import { initializeApp } from "firebase/app";
-import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+import { getMessaging, onBackgroundMessage } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-messaging-sw.js";
 
 // 환경 변수 가져오기 (빌드 시점에 import.meta.env로 치환됨)
 const firebaseConfig = {
