@@ -49,16 +49,6 @@ export default defineConfig({
     }),
   ],
   build: {
-    rollupOptions: {
-      input: {
-        main: "index.html",
-        sw: "src/serviceWorker/firebase-messaging-sw.js",
-      },
-      output: {
-        entryFileNames: (chunk) => {
-          return chunk.name === "sw" ? `firebase-messaging-sw.js` : `[name].js`;
-        },
-      },
-    },
+    
   },
 });
