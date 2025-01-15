@@ -1,5 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+
+// __dirname 대체 (ES 모듈에서는 __dirname이 정의되지 않으므로 아래와 같이 설정)
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 // Vercel 환경 변수로부터 Firebase 설정 값 가져오기
 const firebaseConfig = {
