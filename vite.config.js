@@ -1,19 +1,35 @@
-// vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+
+function replaceEnvVariables() {
+  return {
+    name: "replace-env-variables",
+    transform(code, id) {
+      if (id.endsWith("firebase-messaging-sw.js")) {
+        return code
+          .replace("__VITE_FIREBASE_API_KEY__", JSON.stringify(process.env.VITE_FIREBASE_API_KEY))
+          .replace("__VITE_FIREBASE_AUTH_DOMAIN__", JSON.stringify(process.env.VITE_FIREBASE_AUTH_DOMAIN))
+          .replace("__VITE_FIREBASE_PROJECT_ID__", JSON.stringify(process.env.VITE_FIREBASE_PROJECT_ID))
+          .replace("__VITE_FIREBASE_STORAGE_BUCKET__", JSON.stringify(process.env.VITE_FIREBASE_STORAGE_BUCKET))
+          .replace("__VITE_FIREBASE_MESSAGING_SENDER_ID__", JSON.stringify(process.env.VITE_FIREBASE_MESSAGING_SENDER_ID))
+          .replace("__VITE_FIREBASE_APP_ID__", JSON.stringify(process.env.VITE_FIREBASE_APP_ID));
+      }
+      return code;
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      injectRegister: false, // 커스텀 서비스 워커 등록을 위해 false로 설정
+      injectRegister: false,
       manifest: {
         name: "My PWA App",
         short_name: "MyPWA",
         start_url: "/",
-        scope: "/",
         display: "standalone",
         background_color: "#ffffff",
         theme_color: "#000000",
@@ -30,25 +46,7 @@ export default defineConfig({
           },
         ],
       },
-      workbox: {
-        globPatterns: ["**/*.{js,css,html,png}"],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/example\.com\/api\/.*$/,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "api-cache",
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 30 * 24 * 60 * 60,
-              },
-            },
-          },
-        ],
-      },
     }),
+    replaceEnvVariables(), // 환경 변수 치환 플러그인 추가
   ],
-  build: {
-    
-  },
 });
