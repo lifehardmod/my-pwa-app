@@ -6,7 +6,7 @@ import App from "./App.jsx";
 // 서비스 워커 등록 (ES 모듈 방식)
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("./firebase-messaging-sw.js", { type: "module" }) // public 폴더 기준 경로
+    .register("/firebase-messaging-sw.js", { type: "module" }) // type: "module" 옵션 추가
     .then((registration) => {
       console.log("Service Worker 등록 성공:", registration);
     })
@@ -14,7 +14,6 @@ if ("serviceWorker" in navigator) {
       console.error("Service Worker 등록 실패:", error);
     });
 }
-
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

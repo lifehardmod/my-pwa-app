@@ -1,10 +1,9 @@
 import fs from "fs";
 import path from "path";
 
-// __dirname 대체 (ES 모듈에서는 __dirname이 정의되지 않으므로 아래와 같이 설정)
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-// Vercel 환경 변수로부터 Firebase 설정 값 가져오기
+// 환경 변수 가져오기
 const firebaseConfig = {
   apiKey: process.env.VITE_FIREBASE_API_KEY,
   authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -35,7 +34,7 @@ const swContent = `
   });
 `;
 
-// 파일 저장 경로
+// 파일 생성 경로
 const outputPath = path.join(__dirname, "public", "firebase-messaging-sw.js");
 
 // 파일 쓰기
